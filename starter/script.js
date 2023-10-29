@@ -87,12 +87,11 @@ var upperCasedCharacters = [
   'Y',
   'Z'
 ];
-
-var passwordOptions = {};
+var passwordLength = 0;
 //Function to prompt user for password options
 function getPasswordOptions() {
   //create a variable to store the value of the prompt of how many characters the password should generate
-  var passwordLength = prompt("Choose the length of the password you want to generate between 8 and 128 characters.");
+  passwordLength = prompt("Choose the length of the password you want to generate between 8 and 128 characters.");
   // change the value of the variable from string to a numeric value
   passwordLength = +passwordLength;
   // check if the length is between 8 to 128 characters
@@ -103,7 +102,7 @@ function getPasswordOptions() {
       var numericChar = confirm("Do you want to include numbers in your password?");
       var specialChar = confirm("Do you want to include special characters in your password?");
 
-       passwordOptions = {
+        var passwordOptions = {
         lowerCase : lowerCaseChar,
         upperCase : upperCaseChar,
         numeric : numericChar,
@@ -112,17 +111,27 @@ function getPasswordOptions() {
   } else {
     alert("The length of the password has to be bewteen 8 and 128 characters, please try again with a valid number");
   };
+  return passwordOptions;
 }
+      
 
 
-  
 // Function for getting a random element from an array
 function getRandom(arr) {
+  let passwordChar = "";
+  for (let i = 0; i < passwordLength; i++) {
+    const element = Math.floor(Math.random() * arr.length);
+    passwordChar += arr[element];
+  }
+  return passwordChar;
 }
+
 
 // Function to generate password with user input
 // Check if the user has selected at least one set of Characters
 function generatePassword() {
+  var  passwordOptions = getPasswordOptions();
+
   if (passwordOptions.lowerCase !== true && passwordOptions.upperCase !== true && passwordOptions.numeric !== true && passwordOptions.specialCase !== true ) {
     alert("You need to specify at least one set of characters, try again.");
   }
@@ -141,6 +150,9 @@ function generatePassword() {
   if (passwordOptions.specialCase) {
     charSet = charSet.concat(specialCharacters);
   }
+  var password = getRandom(charSet);
+  return password;
+  
 }
 
 
