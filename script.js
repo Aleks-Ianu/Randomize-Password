@@ -134,6 +134,8 @@ function generatePassword() {
 
   if (passwordOptions.lowerCase !== true && passwordOptions.upperCase !== true && passwordOptions.numeric !== true && passwordOptions.specialCase !== true ) {
     alert("You need to specify at least one set of characters, try again.");
+    // return empty string to not get value undefined 
+    return "";
   }
   // create an empty array to concatenate every true character set
   var charSet = [];
